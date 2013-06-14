@@ -11,6 +11,8 @@ on post-fs-data
     chmod 0771 /cache/dalvik-cache
 
 on boot
+    start sysinit
+
     chown system system /sys/block/mmcblk0/queue/scheduler
     chmod 0664 /sys/block/mmcblk0/queue/scheduler
 
@@ -38,3 +40,8 @@ service compcache /system/bin/handle_compcache
     user root
     group root
     oneshot
+
+service sysinit /system/bin/sysinit
+    user root
+    oneshot
+

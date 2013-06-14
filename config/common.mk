@@ -29,11 +29,6 @@ PRODUCT_COPY_FILES += \
     vendor/slim/prebuilt/common/bin/compcache:system/bin/compcache \
     vendor/slim/prebuilt/common/bin/handle_compcache:system/bin/handle_compcache
 
-# Audio Config for DSPManager
-PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/vendor/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf
-#LOCAL SLIM CHANGES  - END
-
 # Enable SIP+VoIP on all targets
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
@@ -44,10 +39,12 @@ PRODUCT_COPY_FILES += \
     vendor/slim/prebuilt/common/etc/sysctl.conf:system/etc/sysctl.conf
 
 PRODUCT_COPY_FILES += \
-    vendor/slim/prebuilt/common/etc/init.d/00slim:system/etc/init.d/00slim \
-    vendor/slim/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit \
-    vendor/slim/prebuilt/common/etc/init.d/98tweaks:system/etc/init.d/98tweaks \
-    vendor/slim/prebuilt/common/etc/init_trigger.disabled:system/etc/init_trigger.disabled \
+    vendor/slim/prebuilt/common/etc/init.d/00banner:system/etc/init.d/00banner \
+    vendor/slim/prebuilt/common/etc/init.d/01slim:system/etc/init.d/01slim \
+    vendor/slim/prebuilt/common/etc/init.d/02userinit:system/etc/init.d/02userinit \
+    vendor/slim/prebuilt/common/etc/init.d/03tweaks:system/etc/init.d/03tweaks \
+    vendor/slim/prebuilt/common/etc/init.d/04mountrw:system/etc/init.d/04mountrw \
+    vendor/slim/prebuilt/common/etc/init_trigger.disabled:system/etc/init_trigger.enabled \
     vendor/slim/prebuilt/common/bin/sysinit:system/bin/sysinit
 
 PRODUCT_COPY_FILES += \
@@ -86,10 +83,10 @@ PRODUCT_PACKAGES += \
 # Extra Optional packages
 PRODUCT_PACKAGES += \
     DashClock \
-    SlimFileManager \
     SlimCenter \
-    LatinIME \
-    SlimIRC
+    LatinIME 
+#    SlimIRC
+#    SlimFileManager
 
 # Extra tools
 PRODUCT_PACKAGES += \
@@ -115,20 +112,28 @@ PRODUCT_BUILD_PROP_OVERRIDES += BUILD_DISPLAY_ID=$(BUILD_ID)
 PRODUCT_PROPERTY_OVERRIDES += \
     slim.ota.version=$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)
 
-ifdef SLIM_WEEKLY
-    SLIM_VERSION := Slim-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-WEEKLY
-    SLIM_MOD_VERSION := Slim-$(SLIM_BUILD)-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-WEEKLY
-    PLATFORM_VERSION_CODENAME := WEEKLY
+ifdef SLIM_EXP
+    SLIM_VERSION := SlimBean-OpenPDroid-DennisBold-EXP-$(shell date +"%A%d%B%Y-%I%M%p-%Z")
+    SLIM_MOD_VERSION := SlimBean-OpenPDroid-DennisBold-EXP-$(shell date +"%A%d%B%Y-%I%M%p-%Z")
+    PLATFORM_VERSION_CODENAME := EXP
 else
-    ifdef SLIM_RELEASE
-        SLIM_VERSION := Slim-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-OFFICIAL
-        SLIM_MOD_VERSION := Slim-$(SLIM_BUILD)-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-OFFICIAL
-        PLATFORM_VERSION_CODENAME := REL
-    else
-        SLIM_VERSION := Slim-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-UNOFFICIAL-$(shell date +"%Y%m%d-%H%M")
-        SLIM_MOD_VERSION := Slim-$(SLIM_BUILD)-$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR).$(PRODUCT_VERSION_MAINTENANCE)-UNOFFICIAL-$(shell date +"%Y%m%d-%H%M")
-        PLATFORM_VERSION_CODENAME := UNOFFICIAL
+    ifdef SLIM_DISPLAY
+        SLIM_VERSION := SlimBean-OpenPDroid-DennisBold-DISPLIBS-$(shell date +"%A%d%B%Y-%I%M%p-%Z")
+        SLIM_MOD_VERSION := SlimBean-OpenPDroid-DennisBold-DISPLIBS-$(shell date +"%A%d%B%Y-%I%M%p-%Z")
+        PLATFORM_VERSION_CODENAME := DISP
     endif
+endif
+ifdef SLIM_REL
+        SLIM_VERSION := SlimBean-OpenPDroid-DennisBold-REL-$(shell date +"%A%d%B%Y-%I%M%p-%Z")
+        SLIM_MOD_VERSION := SlimBean-OpenPDroid-DennisBold-REL-$(shell date +"%A%d%B%Y-%I%M%p-%Z")
+        PLATFORM_VERSION_CODENAME := RELEASE
+else
+    ifdef SLIM_NEXP
+        SLIM_VERSION := SlimBean-OpenPDroid-DennisBold-$(PRODUCT_VERSION_MAINTENANCE)-$(shell date +"%A%d%B%Y-%I%M%p-%Z")
+        SLIM_MOD_VERSION := SlimBean-OpenPDroid-DennisBold-$(PRODUCT_VERSION_MAINTENANCE)-$(shell date +"%A%d%B%Y-%I%M%p-%Z")
+        PLATFORM_VERSION_CODENAME := EXP
+    endif
+
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \

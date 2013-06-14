@@ -1,0 +1,14 @@
+#!/system/bin/sh
+#
+# Print startup info
+#
+L="log -p i -t DennisBold"
+
+$L "    ____                   _      ____        __    __"
+$L "   / __ \___  ____  ____  (_)____/ __ )____  / /___/ /"
+$L "  / / / / _ \/ __ \/ __ \/ / ___/ __  / __ \/ / __  / "
+$L " / /_/ /  __/ / / / / / / (__  ) /_/ / /_/ / / /_/ /  "
+$L "/_____/\___/_/ /_/_/ /_/_/____/_____/\____/_/\____/   "
+
+$L "Welcome to Android `getprop ro.build.version.release` / SlimBean-`getprop ro.slim.version`";
+$L "Dennis Bold, XDA"
